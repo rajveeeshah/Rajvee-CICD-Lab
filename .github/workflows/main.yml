@@ -36,6 +36,7 @@ jobs:
           echo test, and deploy your project.
 
 
+##Step 3: Add two setup steps to the pipeline
 # Installs Python 3.8
       - uses: actions/setup-python@v2
         with:
@@ -47,3 +48,11 @@ jobs:
           apt-get update && apt-get install libpq-dev
           pipx install meltano
           meltano install
+
+
+##Step 4: Add a step to extract data from a tap
+# Run the pipeline using meltano
+      - name: Run the extract-load pipeline
+        run: |
+          meltano elt tap-carbon-intensity target-jsonl
+          echo "Extract-load completed successfully!"
